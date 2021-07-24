@@ -9,11 +9,12 @@ MAX_COLORS = 9
 ENDPOINT = 'https://www.thecolorapi.com/scheme'
 
 params = {
-    'hex': secrets.token_bytes(6 * 4).hex(),
+    'hex': secrets.token_bytes(3).hex(),
     'mode': random.choice(MODES),
     'count': random.randint(MIN_COLORS, MAX_COLORS),
     'format': 'json'
 }
+print(params)
 
 try:
     tries = 5
@@ -21,7 +22,7 @@ try:
         try:
             data = requests.get(ENDPOINT, params).json()
             for color in data['colors']:
-                print(f"Got color {color['rgb']['value']}")
+                print(f"Got color {color['hex']['value']}")
 
             break
         except requests.exceptions.HTTPError as err:
